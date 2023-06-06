@@ -1,27 +1,27 @@
 import {StyleSheet, Text, View, FlatList} from 'react-native';
 import React from 'react';
-import PatientDetailsCard from '../components/Molecules/PatientDetailsCard';
+import DoctorDetailsCard from '../components/Molecules/DoctorDetailCard';
 import {BtnContain} from '../components/Atoms/Buttons';
 import colors from '../constants/colors';
 import metrics from '../constants/layout';
 import SearchBar from '../components/Molecules/SearchBar';
 
-export default function InPatientDetails({navigation}: any) {
+export default function SearchDoctorScreen({navigation}: any) {
   return (
     <View style={styles.container}>
       <FlatList
         showsVerticalScrollIndicator={false}
         data={[1, 2, 3, 4]}
-        renderItem={({item}) => <PatientDetailsCard showView={true} />}
+        renderItem={({item}) => <DoctorDetailsCard />}
         keyExtractor={item => item.toString()}
-        ListHeaderComponent={()=> <SearchBar/>}
+        ListHeaderComponent={()=> <SearchBar placeholder="Search for doctor"/>}
         ListFooterComponent={() => (
           <View style={{marginVertical: 20, alignItems: 'center'}}>
             <View style={{width: metrics.screenWidth * 0.4}}>
               <BtnContain
                 label="Add Patient"
                 color={colors.green}
-                onPress={() => navigation.navigate('Add Patient')}
+                onPress={() => navigation.navigate('Home')}
               />
             </View>
           </View>

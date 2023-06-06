@@ -4,14 +4,18 @@ import PatientDetailsCard from '../components/Molecules/PatientDetailsCard'
 import { BtnContain } from '../components/Atoms/Buttons'
 import colors from '../constants/colors'
 import metrics from '../constants/layout'
+import SearchBar from '../components/Molecules/SearchBar'
 
-export default function SentReport() {
+export default function SentReport({ navigation }: any) {
   return (
     <View style={styles.container}>
+      <SearchBar />
         <FlatList
         showsVerticalScrollIndicator={false}
         data={[1,2,3,4,5,6,7,8,9,10]}
-        renderItem={({item}) => <PatientDetailsCard />}
+        renderItem={({item}) => 
+
+        <PatientDetailsCard  onPress={()=> navigation.navigate('Sent Report Details')}/>}
         keyExtractor={(item) => item.toString()}
         />
 

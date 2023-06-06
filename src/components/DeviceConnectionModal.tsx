@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {Device} from 'react-native-ble-plx';
+import { BluetoothDevice } from 'react-native-bluetooth-classic';
 
 type DeviceModalListItemProps = {
   item: ListRenderItemInfo<Device>;
@@ -17,7 +18,7 @@ type DeviceModalListItemProps = {
 };
 
 type DeviceModalProps = {
-  devices: Device[];
+  devices: BluetoothDevice[];
   visible: boolean;
   connectToPeripheral: (device: Device) => void;
   closeModal: () => void;

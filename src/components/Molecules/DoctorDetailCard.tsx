@@ -1,4 +1,4 @@
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 
 import * as Typography from '../Atoms/Typography';
@@ -13,7 +13,7 @@ interface Props {
   showView?: boolean;
 }
 
-const PatientDetailsCard: React.FC<Props> = ({
+const DoctorDetailsCard: React.FC<Props> = ({
   patientId,
   date,
   onPress,
@@ -21,24 +21,18 @@ const PatientDetailsCard: React.FC<Props> = ({
 }) => {
   return (
     <View style={styles.PatientDetailsContainer}>
-      <TouchableOpacity disabled={showView} onPress={onPress}>
+      <TouchableOpacity  onPress={onPress}>
         <View style={{flexDirection: 'row'}}>
-          <View>
-            <Typography.Title>Patient ID : AB1234D47</Typography.Title>
-            <Typography.SubTitle>Date : 27-03-2023</Typography.SubTitle>
+        <Image
+        style={{width: 50, height: 50, borderRadius: 100}}
+        source={{
+          uri: 'https://img.freepik.com/premium-vector/cute-astronaut-working-as-programmer_332004-204.jpg?w=740',
+        }}
+      />
+          <View style={{marginLeft: 10}}>
+            <Typography.Title>Doctor Name : Dr Karan</Typography.Title>
+            <Typography.SubTitle>Doctor ID : AB1234D47</Typography.SubTitle>
           </View>
-          {showView ? (
-            <View
-              style={{
-                alignItems: 'flex-end',
-                flex: 1,
-                justifyContent: 'center',
-              }}>
-              <TouchableOpacity onPress={onPress}>
-                <Typography.Title color={colors.green}>View</Typography.Title>
-              </TouchableOpacity>
-            </View>
-          ) : null}
         </View>
       </TouchableOpacity>
     </View>
@@ -57,4 +51,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PatientDetailsCard;
+export default DoctorDetailsCard;

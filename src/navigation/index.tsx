@@ -1,7 +1,7 @@
 // navigation flow of whole application
 
-import {View, TouchableOpacity, Text} from 'react-native';
-import React from 'react';
+import {View, TouchableOpacity, Text, ActivityIndicator} from 'react-native';
+import React, {useContext} from 'react';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -9,10 +9,8 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-
 
 import colors from '../constants/colors';
 import fonts from '../constants/fontsSize';
@@ -22,6 +20,13 @@ import SentReport from '../screens/SentReport';
 import ReceivedReport from '../screens/ReceivedReport';
 import metrics from '../constants/layout';
 import AddPatientScreen from '../screens/AddPatientScreen';
+import LoginScreen from '../screens/LoginScreen';
+import {AuthContext} from '../context/AuthContext';
+import RegistrationScreen from '../screens/RegistrationScreen';
+import SentReportDetails from '../screens/SentReportDetails';
+import ReceivedReportDetails from '../screens/ReceivedReportDetails';
+import OutPatientsDetailsScreen from '../screens/OutPatientsDetailsScreen';
+import SearchDoctorScreen from '../screens/SearchDoctorScreen';
 
 // import EditProfileScreen from '../screens/EditProfileScreen';
 
@@ -42,14 +47,65 @@ const BottomTab = createBottomTabNavigator();
 const TopTab = createMaterialTopTabNavigator();
 
 export default function Navigation() {
+  const {isAuthenticated, apploading}: any = useContext(AuthContext);
+
+  if (apploading) {
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text style={{color: colors.green}}>Loading...</Text>
+        <ActivityIndicator size="large" color={colors.green} />
+      </View>
+    );
+  }
+
   return (
     <NavigationContainer theme={MyTheme}>
       <Stack.Navigator>
-        <Stack.Screen
-          name="Main"
-          component={TabNavigation}
-          options={{headerShown: false}}
-        />
+        {isAuthenticated === false ? (
+          <>
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Registration"
+              component={RegistrationScreen}
+              options={{
+                headerShown: true,
+
+                headerTitle: '',
+                headerTitleStyle: {
+                  color: '#000',
+                  fontFamily: 'Montserrat-Medium',
+                  fontSize: 20,
+                },
+                headerLeft: () => (
+                  <View
+                    style={{
+                      alignItems: 'center',
+                      flexDirection: 'row',
+                      marginLeft: 15,
+                    }}>
+                    <TouchableOpacity>
+                      <MaterialCommunityIcons
+                        name="arrow-left"
+                        size={25}
+                        color={'#000'}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                ),
+              }}
+            />
+          </>
+        ) : (
+          <Stack.Screen
+            name="Main"
+            component={TabNavigation}
+            options={{headerShown: false}}
+          />
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -63,9 +119,7 @@ const TabNavigation = ({navigation}: any) => {
         tabBarIcon: ({focused}) => {
           let iconName = '';
           if (route.name === 'Home') {
-            iconName = focused
-              ? 'home-outline'
-              : 'home-outline';
+            iconName = focused ? 'home-outline' : 'home-outline';
           } else if (route.name === 'Patients list') {
             iconName = focused
               ? 'clipboard-list-outline'
@@ -117,9 +171,103 @@ const TabNavigation = ({navigation}: any) => {
         component={HomeScreen}
         options={{headerShown: true}}
       />
-      <BottomTab.Screen name="Patients list" component={PatientsFlowStack} />
+      <BottomTab.Screen
+        name="Patients list"
+        component={PatientsFlowStack}
+        options={{
+          headerTitle: '',
+          headerLeft: () => (
+            <View
+              style={{
+                alignItems: 'center',
+                flexDirection: 'row',
+                marginLeft: 15,
+              }}>
+              <TouchableOpacity>
+                <MaterialCommunityIcons
+                  name="arrow-left"
+                  size={25}
+                  color={'#000'}
+                />
+              </TouchableOpacity>
+            </View>
+          ),
+          headerRight: () => (
+            <TouchableOpacity onPress={() => {}}>
+              <View
+                style={{
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                  marginRight: 15,
+                }}>
+                <TouchableOpacity>
+                  <MaterialCommunityIcons
+                    name="stethoscope"
+                    size={18}
+                    color={'#000'}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <MaterialCommunityIcons
+                    name="battery-30"
+                    size={18}
+                    color={'#000'}
+                  />
+                </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
+          ),
+        }}
+      />
 
-      <BottomTab.Screen name="Annotations" component={AnnotationDetailsStack} />
+      <BottomTab.Screen
+        name="Annotations"
+        component={AnnotationFlowStack}
+        options={{
+          headerTitle: '',
+          headerLeft: () => (
+            <View
+              style={{
+                alignItems: 'center',
+                flexDirection: 'row',
+                marginLeft: 15,
+              }}>
+              <TouchableOpacity>
+                <MaterialCommunityIcons
+                  name="arrow-left"
+                  size={25}
+                  color={'#000'}
+                />
+              </TouchableOpacity>
+            </View>
+          ),
+          headerRight: () => (
+            <TouchableOpacity onPress={() => {}}>
+              <View
+                style={{
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                  marginRight: 15,
+                }}>
+                <TouchableOpacity>
+                  <MaterialCommunityIcons
+                    name="stethoscope"
+                    size={18}
+                    color={'#000'}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <MaterialCommunityIcons
+                    name="battery-30"
+                    size={18}
+                    color={'#000'}
+                  />
+                </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
+          ),
+        }}
+      />
 
       <BottomTab.Screen
         name="Profile"
@@ -132,68 +280,156 @@ const TabNavigation = ({navigation}: any) => {
   );
 };
 
-
-function PatientsFlowStack(){
-  return(
+function PatientsFlowStack() {
+  return (
     <Stack.Navigator>
-      <Stack.Screen name="Patient list" component={PatientDetailsStack} options={{
-        headerShown: false
-      }}/>
-      <Stack.Screen name="Add Patient" component={AddPatientScreen} />
+      <Stack.Screen
+        name="Patient list"
+        component={PatientDetailsStack}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Add Patient"
+        component={AddPatientScreen}
+        options={{
+          headerLeft: () => (
+            <View
+              style={{
+                alignItems: 'center',
+                flexDirection: 'row',
+                marginLeft: 15,
+              }}></View>
+          ),
+          headerShadowVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name="Out Patient Details"
+        component={OutPatientsDetailsScreen}
+        options={{
+          headerTitle: 'Overall Report',
+          headerLeft: () => (
+            <View
+              style={{
+                alignItems: 'center',
+                flexDirection: 'row',
+                marginLeft: 15,
+              }}></View>
+          ),
+          headerShadowVisible: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="Search Doctor"
+        component={SearchDoctorScreen}
+        options={{
+          headerTitle: 'Select Doctor',
+          headerLeft: () => (
+            <View
+              style={{
+                alignItems: 'center',
+                flexDirection: 'row',
+                marginLeft: 15,
+              }}></View>
+          ),
+          headerShadowVisible: false,
+        }}
+      />
     </Stack.Navigator>
-  )
+  );
 }
 
 function PatientDetailsStack() {
-    return (
-      <TopTab.Navigator
+  return (
+    <TopTab.Navigator
       screenOptions={{
-
-
         tabBarLabelStyle: {
-          textTransform:'none',
+          textTransform: 'none',
           fontSize: fonts.font14,
-          fontWeight: '500'
+          fontWeight: '500',
         },
         tabBarInactiveTintColor: colors.black,
-        tabBarActiveTintColor: colors.red, 
+        tabBarActiveTintColor: colors.red,
 
         tabBarIndicatorStyle: {
           backgroundColor: colors.red,
           height: 3,
-
         },
-      }}
-      >
-        <TopTab.Screen name="Out Patients" component={OutPatientDetails} />
-        <TopTab.Screen name="In Patients" component={InPatientDetails} />
-      </TopTab.Navigator>
-    );
-  }
+      }}>
+      <TopTab.Screen name="Out Patients" component={OutPatientDetails} />
+      <TopTab.Screen name="In Patients" component={InPatientDetails} />
+    </TopTab.Navigator>
+  );
+}
 
+function AnnotationFlowStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Annotationdetails"
+        component={AnnotationDetailsStack}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Sent Report Details"
+        component={SentReportDetails}
+        options={{
+          headerTitle: 'Overall report',
+          headerLeft: () => (
+            <View
+              style={{
+                alignItems: 'center',
+                flexDirection: 'row',
+                marginLeft: 15,
+              }}></View>
+          ),
+          headerShadowVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name="Received Report Details"
+        component={ReceivedReportDetails}
+        options={{
+          headerTitle: 'Received report',
+          headerLeft: () => (
+            <View
+              style={{
+                alignItems: 'center',
+                flexDirection: 'row',
+                marginLeft: 15,
+              }}></View>
+          ),
+          headerShadowVisible: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
 
-  function AnnotationDetailsStack() {
-    return (
-      <TopTab.Navigator
+function AnnotationDetailsStack() {
+  return (
+    <TopTab.Navigator
       screenOptions={{
-        tabBarContentContainerStyle: {
-        },
+        tabBarContentContainerStyle: {},
         tabBarLabelStyle: {
-          textTransform:'none',
+          textTransform: 'none',
           fontSize: fonts.font14,
-          fontWeight: '500'
+          fontWeight: '500',
         },
         tabBarInactiveTintColor: colors.black,
-        tabBarActiveTintColor: colors.red, 
+        tabBarActiveTintColor: colors.red,
         tabBarIndicatorStyle: {
           backgroundColor: colors.red,
           height: 3,
         },
-      }}
-      
-      >
-        <TopTab.Screen name="Sent" component={SentReport} />
-        <TopTab.Screen name="Received" component={ReceivedReport} />
-      </TopTab.Navigator>
-    );
-  }
+      }}>
+      <TopTab.Screen name="Sent" component={SentReport} />
+      <TopTab.Screen name="Received" component={ReceivedReport} />
+    </TopTab.Navigator>
+  );
+}

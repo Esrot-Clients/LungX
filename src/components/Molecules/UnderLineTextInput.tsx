@@ -3,55 +3,42 @@ import React from 'react';
 import metrics from '../../constants/layout';
 import fonts from '../../constants/fontsSize';
 import colors from '../../constants/colors';
-import { Title } from './Typography';
+import { Title } from '../Atoms/Typography';
 
 
 interface Props {
   placeholder?: string;
   label?: string;
   value?: string;
-  multiline? : boolean;
   onChangeText?: (text: string) => void;
   onSubmitEditing?: () => void;
   height?: number;
   width?: number;
 }
 
-export const Textinput: React.FC<Props> = ({
+const UnderLineTextinput: React.FC<Props> = ({
   placeholder,
   label,
   value,
   height,
   width,
-  multiline,
   onChangeText,
   onSubmitEditing,
 }) => {
-
-
-  const handleChange = (text: string) => {
-    onChangeText && onChangeText(text);
-  };
-
-  const handleSubmit = () => {
-    onSubmitEditing && onSubmitEditing();
-  };
   
   return (
     <View style={{marginVertical: 10,}}>
-      {label ? <Title  color={colors.black} size={fonts.font12}>{label}</Title> : null}
       <TextInput
         style={[
           styles.textinput,
           {
             height: height ? height : 55,
             width: width ? width : metrics.screenWidth * 0.9,
-            textAlignVertical : height ? 'top' : 'center'
           },
         ]}
         value={value}
-        onChangeText={handleChange}
-        onSubmitEditing={handleSubmit}
+        onChangeText={onChangeText}
+        onSubmitEditing={onSubmitEditing}
         placeholder={placeholder}
         placeholderTextColor="gray"
         autoCapitalize="none"
@@ -65,7 +52,7 @@ const styles = StyleSheet.create({
   textinput: {
     borderColor: colors.green,
     borderRadius: 8,
-    borderWidth: 0.5,
+    borderBottomWidth: 1,
     marginVertical: 5,
     paddingHorizontal: 15,
     paddingVertical: 10,
@@ -76,4 +63,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Textinput;
+export default UnderLineTextinput;

@@ -7,6 +7,11 @@ import {
   Characteristic,
   Device,
 } from 'react-native-ble-plx';
+
+import RNBluetoothClassic, {
+  BluetoothDevice
+} from 'react-native-bluetooth-classic';
+
 import {PERMISSIONS, requestMultiple} from 'react-native-permissions';
 import DeviceInfo from 'react-native-device-info';
 
@@ -21,12 +26,12 @@ interface BluetoothLowEnergyApi {
   connectToDevice: (deviceId: Device) => Promise<void>;
 //   disconnectFromDevice: () => void;
   connectedDevice: Device | null;
-  allDevices: Device[];
+  allDevices: BluetoothDevice[];
 //   heartRate: number;
 }
 
 function useBLE(): BluetoothLowEnergyApi {
-  const [allDevices, setAllDevices] = useState<Device[]>([]);
+  const [allDevices, setAllDevices] = useState<BluetoothDevice[]>([]);
   const [connectedDevice, setConnectedDevice] = useState<Device | null>(null);
   const [heartRate, setHeartRate] = useState<number>(0);
 
@@ -71,33 +76,49 @@ function useBLE(): BluetoothLowEnergyApi {
   const isDuplicteDevice = (devices: Device[], nextDevice: Device) =>
     devices.findIndex(device => nextDevice.id === device.id) > -1;
 
-  const scanForPeripherals = () =>
-    bleManager.startDeviceScan(null, null, (error, device) => {
-      if (error) {
-        console.log(error);
-      }
-      if (device) {
-        setAllDevices((prevState: Device[]) => {
-          if (!isDuplicteDevice(prevState, device)) {
-            return [...prevState, device];
-          }
-          return prevState;
-        });
-      }
-    });
+  const scanForPeripherals = () =>{
+    console.log('scanForPeripherals')
+    RNBluetoothClassic.startDiscovery()
+    .then((unpairedDevices: BluetoothDevice[]) => {
+      console.log(JSON.stringify(unpairedDevices, null, 2))
+      setAllDevices(unpairedDevices)
+    })
+    .catch((err: any) => console.log(err));
+  }
+    // bleManager.startDeviceScan(null, null, (error, device) => {
+    //   if (error) {
+    //     console.log(error);
+    //   }
+    //   if (device) {
+    //     setAllDevices((prevState: Device[]) => {
+    //       if (!isDuplicteDevice(prevState, device)) {
+    //         return [...prevState, device];
+    //       }
+    //       return prevState;
+    //     });
+    //   }
+    // });
+    
 
   const connectToDevice = async (device: Device) => {
     console.log(device.id)
-    try {
-      const deviceConnection = await bleManager.connectToDevice(device.id);
-      setConnectedDevice(deviceConnection);
-      await deviceConnection.discoverAllServicesAndCharacteristics();
-      bleManager.stopDeviceScan();
-      Alert.alert('Connected')
-    //   startStreamingData(deviceConnection);
-    } catch (e) {
-      console.log('FAILED TO CONNECT', e);
+    try{
+      const deviceConnection = await RNBluetoothClassic.connectToDevice(device.id)
+      console.log(deviceConnection)
     }
+    catch(error){
+      console.log(error)
+    }
+    // try {
+    //   const deviceConnection = await bleManager.connectToDevice(device.id);
+    //   setConnectedDevice(deviceConnection);
+    //   await deviceConnection.discoverAllServicesAndCharacteristics();
+    //   bleManager.stopDeviceScan();
+    //   Alert.alert('Connected')
+    // //   startStreamingData(deviceConnection);
+    // } catch (e) {
+    //   console.log('FAILED TO CONNECT', e);
+    // }
   };
 
 //   const disconnectFromDevice = () => {
