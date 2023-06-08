@@ -98,13 +98,13 @@ export default function HomeScreen({ navigation }: any) {
   return (
     <View style={{alignItems: 'center', flex: 1}}>
 
-      {/* <BtnContain width={metrics.screenWidth * 0.95} onPress={openModal}label='Connect Device'/>
+      
       <DeviceModal
         closeModal={hideModal}
         visible={isModalVisible}
         connectToPeripheral={connectToDevice}
         devices={allDevices}
-      /> */}
+      />
 
       <View style={{
         width: metrics.screenWidth * 0.85,
@@ -116,12 +116,21 @@ export default function HomeScreen({ navigation }: any) {
         </View>
       </View>
 
+
+<View style={{marginTop: 30}}>
+        <BtnContain label='Connect to Devices' onPress={openModal }  color={colors.green}/>
+
+        </View>
       
 
+      
+      <View style={{ height: metrics.screenHeight *0.1}}>
+        </View>
       <TouchableOpacity style={styles.IconContainer} activeOpacity={0.8} onPress={()=> navigation.navigate('Add Patient')}>
         <MaterialCommunityIcons name='plus-circle-outline' color={colors.green} size={metrics.screenWidth * 0.5}/>
         <Title size={fonts.font20} color={colors.green}>ADD PATIENT</Title>
       </TouchableOpacity>
+      
     </View>
   )
 }

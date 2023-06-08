@@ -134,11 +134,8 @@ export const AuthProvider = ({children}: any) => {
     let dataform = new FormData()
 
     try {
-      const response = await LungXinstance.post('api/logout/', {
-        refresh_token: refreshToken,
-      });
 
-      console.log(response.data);
+
       await AsyncStorage.removeItem('useraccesstoken');
       await AsyncStorage.removeItem('userrefreshtoken');
       await AsyncStorage.removeItem('user');
