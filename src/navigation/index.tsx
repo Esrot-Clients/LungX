@@ -27,6 +27,8 @@ import SentReportDetails from '../screens/SentReportDetails';
 import ReceivedReportDetails from '../screens/ReceivedReportDetails';
 import OutPatientsDetailsScreen from '../screens/OutPatientsDetailsScreen';
 import SearchDoctorScreen from '../screens/SearchDoctorScreen';
+import ForgotPasswordEmailScreen from '../screens/ForgotPasswordEmailScreen';
+import ForgotPasswordTokenScreen from '../screens/ForgotPasswordTokenScreen';
 
 // import EditProfileScreen from '../screens/EditProfileScreen';
 
@@ -97,6 +99,17 @@ export default function Navigation() {
                   </View>
                 ),
               }}
+            />
+            <Stack.Screen
+              name="Forgot Password Email"
+              component={ForgotPasswordEmailScreen}
+              options={{headerShown: true}}
+            />
+
+            <Stack.Screen
+              name="Forgot Password Token"
+              component={ForgotPasswordTokenScreen}
+              options={{headerShown: true}}
             />
           </>
         ) : (

@@ -41,20 +41,30 @@ export default function ProfileScreen() {
   };
 
 
-  // const handleUpdateuser = async () => {
-  //   try{
-  //     const response = await LungXinstance.patch('api/update_user_info/',{
-  //       first_name : "Motha"
-  //     })
+  const handleUpdateuser = async () => {
+    try{
+      const response = await LungXinstance.patch('api/update_user_info/',{
+        first_name : "Pratyush"
+      })
 
-  //     console.log(response)
+      console.log(JSON.stringify(response, null, 2))
 
-  //   }
-  //   catch(err){
-  //     console.log(err.response)
-  //   }
-  // }
+    }
+    catch(err: any){
+      console.log(err.response)
+    }
+  }
 
+  const handleGetPatientData = async () => {
+    try{
+      const response = await LungXinstance.get('api/user_profile/')
+      console.log(JSON.stringify(response.data, null, 2))
+
+    }
+    catch(err: any){
+      console.log(err.response)
+    }
+  }
   return (
     <View style={styles.container}>
       <UserInfoCard />
@@ -97,7 +107,7 @@ export default function ProfileScreen() {
           label="logout"
           icon="logout"
           color={colors.green}
-          onPress={()=>DoctorLogout()}
+          onPress={() => DoctorLogout()}
         />
       </View>
     </View>

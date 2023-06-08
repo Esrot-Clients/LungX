@@ -54,7 +54,7 @@ export default function LoginScreen({  navigation }: any) {
             fontSize: 12,
             fontFamily: 'Montserrat-Medium',
           }}
-          onPress={() => {}}>
+          onPress={() => { navigation.navigate('Forgot Password Email')}}>
           Forgot Password?
         </Text>
       </View>
