@@ -131,10 +131,13 @@ export const AuthProvider = ({children}: any) => {
   const DoctorLogout = async () => {
     setloadingactivity(true);
     console.log(refreshToken);
-    let dataform = new FormData()
-
     try {
 
+      // const response = await LungXinstance.post('api/logout/',{
+      //   refresh_token: refreshToken,
+      // })
+
+      // console.log('Logout Object', JSON.stringify(response, null, 2));
 
       await AsyncStorage.removeItem('useraccesstoken');
       await AsyncStorage.removeItem('userrefreshtoken');
@@ -185,6 +188,7 @@ export const AuthProvider = ({children}: any) => {
         DoctorRegistration,
         DoctorLogout,
         setloadingactivity,
+        setUser,
         loadingactivity,
         isAuthenticated,
         apploading,

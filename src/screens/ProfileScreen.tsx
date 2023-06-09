@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, ToastAndroid, View} from 'react-native';
 import React, {useContext, useState} from 'react';
 import UnderLineTextinput from '../components/Molecules/UnderLineTextInput';
 import {AuthContext} from '../context/AuthContext';
@@ -8,13 +8,17 @@ import metrics from '../constants/layout';
 import TextinputwithEditButton from '../components/Molecules/TextInputWithEdit';
 import colors from '../constants/colors';
 import LungXinstance from '../api/server';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import LoadingScreen from '../components/Atoms/LoginScreen';
 
 export default function ProfileScreen() {
-  const {user, DoctorLogout}: any = useContext(AuthContext);
+
+  const [loading, setloading] = useState(false);
+  const {user, setUser, DoctorLogout}: any = useContext(AuthContext);
   const [name, setname] = useState('Pratyush Motha');
-  const [phno, setphno] = useState('9331231231');
-  const [email, setemail] = useState('ipratyushmotha@gmail.com');
-  const [address, setaddress] = useState('Kolkata, West Bengal, India');
+  const [phno, setphno] = useState(user?.mobile);
+  const [email, setemail] = useState(user?.email);
+  const [address, setaddress] = useState(user?.address);
 
   const handleTextInput = (text: string) => {
     console.log(text);
@@ -40,33 +44,65 @@ export default function ProfileScreen() {
     setname(initialValue);
   };
 
-
-  const handleUpdateuser = async () => {
-    try{
-      const response = await LungXinstance.patch('api/update_user_info/',{
-        first_name : "Pratyush"
+  const handleUpdateUserMobileNumber = async (text: string) => {
+    try {
+      setloading(false)
+      const response = await LungXinstance.patch('api/update_user_info/', {
+        mobile: text,
+      });
+      console.log(JSON.stringify(response.data, null, 2));
+      setUser({
+        ...user,
+        mobile: text,
       })
+      await AsyncStorage.mergeItem(
+        'user',
+        JSON.stringify({
+          mobile: text,
+        }),
+      );
+      ToastAndroid.show('Phone Number Updated', ToastAndroid.LONG);
+      setloading(false)
 
-      console.log(JSON.stringify(response, null, 2))
+    } catch (err: any) {
+      console.log("Error Occurred",err);
+      ToastAndroid.show('Error', ToastAndroid.LONG);
+      setloading(false)
+    }
+  };
 
-    }
-    catch(err: any){
-      console.log(err.response)
-    }
-  }
+  const handleUpdateUserEmailAddress = async (text: string) => {
+    try {
+      setloading(false)
+      const response = await LungXinstance.patch('api/user_profile/', {
+        email: text,
+      });
+      console.log(JSON.stringify(response.data, null, 2));
+      setUser({
+        ...user,
+        email: text,
+      })
+      await AsyncStorage.mergeItem(
+        'user',
+        JSON.stringify({
+          email: text,
+        }),
+      );
+      ToastAndroid.show('Email Address Updated', ToastAndroid.LONG);
+      setloading(false)
 
-  const handleGetPatientData = async () => {
-    try{
-      const response = await LungXinstance.get('api/user_profile/')
-      console.log(JSON.stringify(response.data, null, 2))
+    } catch (err: any) {
+      console.log("Error Occurred",err);
+      ToastAndroid.show('Error', ToastAndroid.LONG);
+      setloading(false)
+    }
+  };
 
-    }
-    catch(err: any){
-      console.log(err.response)
-    }
-  }
   return (
     <View style={styles.container}>
+      {
+        loading ? <LoadingScreen /> : null
+      }
       <UserInfoCard />
       {/* <UnderLineTextinput />
       <UnderLineTextinput />
@@ -83,14 +119,14 @@ export default function ProfileScreen() {
       <TextinputwithEditButton
         label="Phone number"
         value={phno}
-        onUpdate={() => {}}
+        onUpdate={handleUpdateUserMobileNumber}
         handleonChangeText={handlepTextInput}
         onCancel={() => {}}
       />
       <TextinputwithEditButton
         label="Email address"
         value={email}
-        onUpdate={() => {}}
+        onUpdate={handleUpdateUserEmailAddress}
         handleonChangeText={handleeTextInput}
         onCancel={() => {}}
       />

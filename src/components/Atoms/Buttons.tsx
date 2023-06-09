@@ -43,7 +43,7 @@ export const BtnContain: React.FC<Props> = ({
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={onPress} disabled={disabled}>
-        <View style={[styles.Filled,{ backgroundColor: disabled ? colors.faintred : color }]}>
+        <View style={[styles.Filled,{ backgroundColor: disabled ? '#7BB274' : color }]}>
           {iconsize === 'small' ? (
             <View style={styles.Wrapper}>
               {icon && (

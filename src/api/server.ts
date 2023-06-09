@@ -54,10 +54,11 @@ LungXinstance.interceptors.request.use(
 
 LungXinstance.interceptors.response.use(
   response => {
-    console.log('response', response)
+    // console.log('response', response)
     return response;
   },
   async error => {
+    console.log("Error Found", JSON.stringify(error.response, null, 2))
     const status = error?.response ? error.response.status : null;
     const originalRequest = error?.config;
     if (status === 401 && !originalRequest?._sent) {
