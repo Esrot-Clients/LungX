@@ -15,7 +15,7 @@ export default function ProfileScreen() {
 
   const [loading, setloading] = useState(false);
   const {user, setUser, DoctorLogout}: any = useContext(AuthContext);
-  const [name, setname] = useState('Pratyush Motha');
+  const [name, setname] = useState(user?.first_name);
   const [phno, setphno] = useState(user?.mobile);
   const [email, setemail] = useState(user?.email);
   const [address, setaddress] = useState(user?.address);

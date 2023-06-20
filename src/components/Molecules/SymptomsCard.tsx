@@ -8,9 +8,12 @@ import {SubTitle} from '../Atoms/Typography';
 
 interface Props {
   title?: string;
+  options?: any;
+  onSelectSymptom?: (value: number) => void;
+  onSelectSymptomOption?: (value: number) => void;
 }
 
-export default function SymptomsCard({title}: Props) {
+export default function SymptomsCard({title, options}: Props) {
   const [activeSymptomsCard, setactiveSymptomsCard] = useState(false);
 
   const handleActiveStateofCheckbox = (value: boolean) => {
@@ -36,40 +39,25 @@ export default function SymptomsCard({title}: Props) {
           <View style={{paddingLeft: 20}}>
             <SubTitle size={fonts.font12}>Since how long ?</SubTitle>
           </View>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <View
-              style={{
-                flex: 0.5,
+          
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap'}}>
+            {
+              options.map((item: any) => (
+                <View
+                key={item.id}
+                style={{
+                  width: '50%',
+                  alignItems: 'flex-start',
+                }}>
+                <CheckBoxComponent label={item.title}  />
+              </View>
 
-                alignItems: 'center',
-              }}>
-              <CheckBoxComponent label="1-7 days" />
-            </View>
-            <View
-              style={{
-                flex: 0.5,
+              ))
+            }
 
-                alignItems: 'center',
-              }}>
-              <CheckBoxComponent label="> 7 days" />
-            </View>
+
           </View>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <View
-              style={{
-                flex: 0.5,
-                alignItems: 'center',
-              }}>
-              <CheckBoxComponent label="> 1 week" />
-            </View>
-            <View
-              style={{
-                flex: 0.5,
-                alignItems: 'center',
-              }}>
-              <CheckBoxComponent label="> 1 mont" />
-            </View>
-          </View>
+
         </View>
       )}
     </View>

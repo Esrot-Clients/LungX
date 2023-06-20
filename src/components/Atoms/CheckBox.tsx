@@ -7,18 +7,21 @@ import fonts from '../../constants/fontsSize';
 
 interface Props {
     label?: string;
+    isChecked?: number;
     onPress?: (value: boolean) => void;
 }
 
 
 export default function CheckBoxComponent({
     label,
+    isChecked,
     onPress
 }: Props) {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
+
   const handleToggle = () =>{
         setToggleCheckBox(!toggleCheckBox)
-        onPress && onPress(!toggleCheckBox)
+        onPress && onPress(toggleCheckBox)
   }
   return (
     <View style={{alignItems: 'center', flexDirection: 'row'}}>
