@@ -205,7 +205,7 @@ const Data = [
     type : 'Chronic Disease',
     data: [
       {
-        id: 12,
+        id: 5,
         title: 'Asthma',
         isChecked: false,
         questionObject: [
@@ -238,7 +238,7 @@ const Data = [
         ],
       },
       {
-        id: 2,
+        id: 6,
         title: 'Hypertension',
         isChecked: false,
         questionObject: [
@@ -271,59 +271,12 @@ const Data = [
         ],
       },
       {
-        id: 3,
-        title: 'Sputum',
+        id: 7,
+        title: 'Diabetes',
         isChecked: false,
         questionObject: [
           {
             id: 1,
-            question: 'Colour of Sputum ?',
-            options: [
-              {
-                id: 1,
-                title: 'White',
-                isChecked: false,
-              },
-              {
-                id: 2,
-                title: 'Yellow',
-                isChecked: false,
-              },
-              {
-                id: 3,
-                title: 'Red',
-                isChecked: false,
-              },
-              {
-                id: 4,
-                title: 'Pink',
-                isChecked: false,
-              },
-            ],
-          },
-          {
-            id: 2,
-            question: 'Quantity of the sputum',
-            options: [
-              {
-                id: 1,
-                title: 'Scanity',
-                isChecked: false,
-              },
-              {
-                id: 2,
-                title: 'Milo',
-                isChecked: false,
-              },
-              {
-                id: 3,
-                title: 'Copious',
-                isChecked: false,
-              },
-            ],
-          },
-          {
-            id: 3,
             question: 'Since How Long ?',
             options: [
               {
@@ -351,8 +304,8 @@ const Data = [
         ],
       },
       {
-        id: 4,
-        title: 'Cold',
+        id: 8,
+        title: 'Heart Disease',
         isChecked: false,
         questionObject: [
           {
@@ -384,263 +337,77 @@ const Data = [
         ],
       },
     ],
-  }
-];
-
-const ChiefComplaintsData = [
-  {
-    id: 1,
-    title: 'Cough',
-    isChecked: false,
-    optionid: 1,
-    options: [
-      {
-        id: 1,
-        title: '1 - 7 days',
-        isChecked: false,
-      },
-      {
-        id: 2,
-        title: '> 7 days',
-        isChecked: false,
-      },
-      {
-        id: 3,
-        title: '> 1 week',
-        isChecked: false,
-      },
-      {
-        id: 4,
-        title: '> 1 month',
-        isChecked: false,
-      },
-    ],
   },
   {
-    id: 2,
-    title: 'Breathlessness',
-    isChecked: false,
-    optionid: 2,
-    options: [
+    type: 'Lifestyle Habits',
+    data: [
       {
-        id: 1,
-        title: '1 - 7 days',
+        id: 9,
+        title: 'Alcohol',
         isChecked: false,
+        questionObject: [
+          // {
+          //   id: 1,
+          //   question: 'Since How Long ?',
+          //   options: [
+          //     {
+          //       id: 1,
+          //       title: '1 - 7 days',
+          //       isChecked: false,
+          //     },
+          //     {
+          //       id: 2,
+          //       title: '> 7 days',
+          //       isChecked: false,
+          //     },
+          //     {
+          //       id: 3,
+          //       title: '> 1 week',
+          //       isChecked: false,
+          //     },
+          //     {
+          //       id: 4,
+          //       title: '> 1 month',
+          //       isChecked: false,
+          //     },
+          //   ],
+          // },
+        ],
       },
       {
-        id: 2,
-        title: '> 7 days',
+        id: 10,
+        title: 'Smoking',
         isChecked: false,
+        questionObject: [
+          // {
+          //   id: 1,
+          //   question: 'Since How Long ?',
+          //   options: [
+          //     {
+          //       id: 1,
+          //       title: '1 - 7 days',
+          //       isChecked: false,
+          //     },
+          //     {
+          //       id: 2,
+          //       title: '> 7 days',
+          //       isChecked: false,
+          //     },
+          //     {
+          //       id: 3,
+          //       title: '> 1 week',
+          //       isChecked: false,
+          //     },
+          //     {
+          //       id: 4,
+          //       title: '> 1 month',
+          //       isChecked: false,
+          //     },
+          //   ],
+          // },
+        ],
       },
-      {
-        id: 3,
-        title: '> 1 week',
-        isChecked: false,
-      },
-      {
-        id: 4,
-        title: '> 1 month',
-        isChecked: false,
-      },
-    ],
-  },
-  {
-    id: 3,
-    title: 'Cold',
-    isChecked: false,
-    optionid: 2,
-    options: [
-      {
-        id: 1,
-        title: '1 - 7 days',
-        isChecked: false,
-      },
-      {
-        id: 2,
-        title: '> 7 days',
-        isChecked: false,
-      },
-      {
-        id: 3,
-        title: '> 1 week',
-        isChecked: false,
-      },
-      {
-        id: 4,
-        title: '> 1 month',
-        isChecked: false,
-      },
-    ],
-  },
-  {
-    id: 4,
-    title: 'Fever',
-    isChecked: false,
-    optionid: 2,
-    options: [
-      {
-        id: 1,
-        title: '1 - 7 days',
-        isChecked: false,
-      },
-      {
-        id: 2,
-        title: '> 7 days',
-        isChecked: false,
-      },
-      {
-        id: 3,
-        title: '> 1 week',
-        isChecked: false,
-      },
-      {
-        id: 4,
-        title: '> 1 month',
-        isChecked: false,
-      },
-    ],
-  },
-  {
-    id: 5,
-    title: 'Weight loss',
-    isChecked: false,
-    optionid: 2,
-    options: [
-      {
-        id: 1,
-        title: '1 - 7 days',
-        isChecked: false,
-      },
-      {
-        id: 2,
-        title: '> 7 days',
-        isChecked: false,
-      },
-      {
-        id: 3,
-        title: '> 1 week',
-        isChecked: false,
-      },
-      {
-        id: 4,
-        title: '> 1 month',
-        isChecked: false,
-      },
-    ],
-  },
-];
-
-const ChronicDiseasesData = [
-  {
-    id: 1,
-    title: 'Asthma',
-    isChecked: false,
-    optionid: 2,
-    options: [
-      {
-        id: 1,
-        title: '< 1 Year',
-        isChecked: false,
-      },
-      {
-        id: 2,
-        title: '< 5 Years',
-        isChecked: false,
-      },
-      {
-        id: 3,
-        title: '< 10 Years',
-        isChecked: false,
-      },
-      {
-        id: 4,
-        title: '> 10 Years',
-        isChecked: false,
-      },
-    ],
-  },
-  {
-    id: 2,
-    title: 'Hypertension',
-    isChecked: false,
-    optionid: 2,
-    options: [
-      {
-        id: 1,
-        title: '< 1 Year',
-        isChecked: false,
-      },
-      {
-        id: 2,
-        title: '< 5 Years',
-        isChecked: false,
-      },
-      {
-        id: 3,
-        title: '< 10 Years',
-        isChecked: false,
-      },
-      {
-        id: 4,
-        title: '> 10 Years',
-        isChecked: false,
-      },
-    ],
-  },
-  {
-    id: 3,
-    title: 'Diabetes',
-    isChecked: false,
-    optionid: 2,
-    options: [
-      {
-        id: 1,
-        title: '< 1 Year',
-        isChecked: false,
-      },
-      {
-        id: 2,
-        title: '< 5 Years',
-        isChecked: false,
-      },
-      {
-        id: 3,
-        title: '< 10 Years',
-        isChecked: false,
-      },
-      {
-        id: 4,
-        title: '> 10 Years',
-        isChecked: false,
-      },
-    ],
-  },
-  {
-    id: 4,
-    title: 'Heart Disease',
-    isChecked: false,
-    optionid: 2,
-    options: [
-      {
-        id: 1,
-        title: '< 1 Year',
-        isChecked: false,
-      },
-      {
-        id: 2,
-        title: '< 5 Years',
-        isChecked: false,
-      },
-      {
-        id: 3,
-        title: '< 10 Years',
-        isChecked: false,
-      },
-      {
-        id: 4,
-        title: '> 10 Years',
-        isChecked: false,
-      },
+ 
     ],
   },
 ];
@@ -651,10 +418,6 @@ export default function AddPatientScreen() {
 
 
   const [formdata, setformdata] = useState(Data)
-  const [ChiefSymptomsData, setChiefSymptomsData] =
-    useState(ChiefComplaintsData);
-  const [ChronicSymptomsData, setChronicSymptomsData] =
-    useState(ChronicDiseasesData);
 
   const [name, setname] = useState('');
 
@@ -696,11 +459,12 @@ export default function AddPatientScreen() {
     optionID: number,
     indexOfOptioninQuestion: number,
   ) => {
-    console.log(optionID)
-    const UpdatedData = formdata.map((item, index) => {
-      const UpdatedQuestion = item.data.map(question =>{
-        if(question.isChecked === true && index === indexOfOptioninQuestion ){
-          const UpdatedOption = question.questionObject.map(option => {
+    console.log(optionID, indexOfOptioninQuestion)
+
+    const UpdatedData = formdata.map((item) => {
+      const UpdatedQuestion = item.data.map((question, index) =>{
+        if(question.isChecked === true &&  index === indexOfOptioninQuestion){
+          const UpdatedOption = question.questionObject.map((option, index) => {
             const UpdatedSelection = option.options.map(
               selection => {
                 if(selection.id === optionID){
@@ -725,75 +489,7 @@ export default function AddPatientScreen() {
   }
 
 
-  const handleChiefSymptomsQuestionSelect = (questionID: number) => {
-    const UpdatedData = ChiefSymptomsData.map(question => {
-      if (question.id === questionID) {
-        return {...question, isChecked: !question.isChecked, optionid: null};
-      } else {
-        return {...question};
-      }
-    });
-    setChiefSymptomsData(UpdatedData);
-  };
 
-  const handleChronicSymptomsQuestionSelect = (questionID: number) => {
-    const UpdatedData = ChronicSymptomsData.map(question => {
-      if (question.id === questionID) {
-        return {...question, isChecked: !question.isChecked, optionid: null};
-      } else {
-        return {...question};
-      }
-    });
-    setChronicSymptomsData(UpdatedData);
-  };
-
-  const handleChiefOptionSelect = (
-    optionID: number,
-    indexOfOptioninQuestion: number,
-  ) => {
-    console.log('index of option', indexOfOptioninQuestion);
-    const UpdatedOptions = ChiefSymptomsData.map((question, index) => {
-      if (question.isChecked === true && index === indexOfOptioninQuestion) {
-        const UpdatedSelection = question.options.map(option => {
-          if (option.id === optionID) {
-            return {...option, isChecked: !option.isChecked};
-          } else {
-            return {...option, isChecked: false};
-          }
-        });
-        return {...question, options: UpdatedSelection};
-      } else {
-        return {...question};
-      }
-    });
-
-    console.log(UpdatedOptions);
-    setChiefSymptomsData(UpdatedOptions);
-  };
-
-  const handleChronicOptionSelect = (
-    optionID: number,
-    indexOfOptioninQuestion: number,
-  ) => {
-    console.log('index of option', indexOfOptioninQuestion);
-    const UpdatedOptions = ChronicSymptomsData.map((question, index) => {
-      if (question.isChecked === true && index === indexOfOptioninQuestion) {
-        const UpdatedSelection = question.options.map(option => {
-          if (option.id === optionID) {
-            return {...option, isChecked: !option.isChecked};
-          } else {
-            return {...option, isChecked: false};
-          }
-        });
-        return {...question, options: UpdatedSelection};
-      } else {
-        return {...question};
-      }
-    });
-
-    console.log(UpdatedOptions);
-    setChronicSymptomsData(UpdatedOptions);
-  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -849,7 +545,7 @@ export default function AddPatientScreen() {
           <View style={{width: metrics.screenWidth * 0.9, marginVertical: 15}}>
             <Title color={colors.black}>{item.type}</Title>
           </View>
-          {item.data.map((questionitem )=> (
+          {item.data.map((questionitem , index)=> (
             <View style={{display: 'flex', marginVertical: 10}}>
               <View style={styles.SymptomsCard}>
                 <View style={{flex: 0.5}}>
@@ -874,7 +570,7 @@ export default function AddPatientScreen() {
               </View>
               {questionitem.isChecked === true ? (
                 <View style={styles.optionsCard}>
-                  {questionitem.questionObject.map((item, index) => (
+                  {questionitem.questionObject.map((item) => (
                     <View style={{paddingLeft: 20, paddingTop: 10}}>
                       <SubTitle size={fonts.font12}>{item.question}</SubTitle>
                       <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
@@ -912,120 +608,9 @@ export default function AddPatientScreen() {
         </>
       ))}
 
-      {/* {ChiefSymptomsData.map((questionitem, index) => (
-        <>
-          <View style={{display: 'flex', marginVertical: 10}}>
-            <View style={styles.SymptomsCard}>
-              <View style={{flex: 0.5}}>
-                <SubTitle size={fonts.font12}>{questionitem.title}</SubTitle>
-              </View>
-              <View style={{flex: 0.5, alignItems: 'flex-end'}}>
-                <CheckBoxComponent
-                  label="Yes"
-                  onPress={() =>
-                    handleChiefSymptomsQuestionSelect(questionitem.id)
-                  }
-                />
-              </View>
-            </View>
 
-            {questionitem.isChecked === true ? (
-              <View style={styles.optionsCard}>
-                <View style={{paddingLeft: 20}}>
-                  <SubTitle size={fonts.font12}>Since how long ?</SubTitle>
-                </View>
 
-                <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-                  {questionitem.options.map(options => (
-                    <View
-                      key={options.id}
-                      style={{
-                        width: '50%',
-                        alignItems: 'flex-start',
-                        paddingLeft: 15,
-                      }}>
-                      <View
-                        style={{alignItems: 'center', flexDirection: 'row'}}>
-                        <CheckBox
-                          value={options.isChecked}
-                          tintColors={{true: '#00D100', false: 'black'}}
-                          onValueChange={() =>
-                            handleChiefOptionSelect(options.id, index)
-                          }
-                        />
-                        <SubTitle size={fonts.font12}>{options.title}</SubTitle>
-                      </View>
-                    </View>
-                  ))}
-                </View>
-              </View>
-            ) : null}
-          </View>
-        </>
-      ))} */}
 
-      <View style={{width: metrics.screenWidth * 0.9, marginVertical: 15}}>
-        <Title color={colors.black}>Chronic Disease</Title>
-      </View>
-
-      {ChronicSymptomsData.map((questionitem, index) => (
-        <>
-          <View style={{display: 'flex', marginVertical: 10}}>
-            <View style={styles.SymptomsCard}>
-              <View style={{flex: 0.5}}>
-                <SubTitle size={fonts.font12}>{questionitem.title}</SubTitle>
-              </View>
-              <View style={{flex: 0.5, alignItems: 'flex-end'}}>
-                <CheckBoxComponent
-                  label="Yes"
-                  onPress={() =>
-                    handleChronicSymptomsQuestionSelect(questionitem.id)
-                  }
-                />
-              </View>
-            </View>
-
-            {questionitem.isChecked === true ? (
-              <View style={styles.optionsCard}>
-                <View style={{paddingLeft: 20}}>
-                  <SubTitle size={fonts.font12}>Since how long ?</SubTitle>
-                </View>
-
-                <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-                  {questionitem.options.map(options => (
-                    <View
-                      key={options.id}
-                      style={{
-                        width: '50%',
-                        alignItems: 'flex-start',
-                        paddingLeft: 15,
-                      }}>
-                      <View
-                        style={{alignItems: 'center', flexDirection: 'row'}}>
-                        <CheckBox
-                          value={options.isChecked}
-                          tintColors={{true: '#00D100', false: 'black'}}
-                          onValueChange={() =>
-                            handleChronicOptionSelect(options.id, index)
-                          }
-                        />
-                        <SubTitle size={fonts.font12}>{options.title}</SubTitle>
-                      </View>
-                    </View>
-                  ))}
-                </View>
-              </View>
-            ) : null}
-          </View>
-        </>
-      ))}
-
-      <View style={{width: metrics.screenWidth * 0.9, marginVertical: 15}}>
-        <Title color={colors.black}>Lifestyle habits</Title>
-      </View>
-
-      <SymptomsCard title="Alcohol" />
-      <SymptomsCard title="Smoking" />
 
       <View style={{width: metrics.screenWidth * 0.9, marginVertical: 15}}>
         <Title color={colors.black}>Additional Notes</Title>
