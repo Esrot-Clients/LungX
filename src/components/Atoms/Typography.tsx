@@ -14,7 +14,7 @@ export const Title: React.FC<
       <Text
         style={{
           fontSize: size ? size : fonts.font14,
-        //   fontFamily: Platform.OS === 'android' ? 'Poppins-Medium' : 'Avenir',
+          fontFamily: Platform.OS === 'android' ? 'Montserrat-Medium' : 'Avenir',
           color: color ? color : '#211C5A',
           fontWeight: '400'
           
@@ -36,7 +36,7 @@ export const SubTitle: React.FC<
       <Text
         style={{
           fontSize: size ? size : fonts.font10,
-          fontFamily: Platform.OS === 'android' ? 'Poppins-Medium' : 'Avenir',
+          fontFamily: Platform.OS === 'android' ? 'Montserrat-Medium' : 'Avenir',
           color: color? color : '#211C5A',
           marginVertical: 5,
         }}>

@@ -1,4 +1,4 @@
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
 import React, {useState} from 'react';
 import Textinput from '../components/Atoms/Textinput';
 import metrics from '../constants/layout';
@@ -159,7 +159,6 @@ const ChiefComplaintsData = [
   },
 ];
 
-
 const ChronicDiseasesData = [
   {
     id: 1,
@@ -273,22 +272,51 @@ const ChronicDiseasesData = [
       },
     ],
   },
-]
+];
 
 export default function AddPatientScreen() {
-  const [course, setcourse] = useState('');
-  const [type, settype] = useState('');
+  const [patientstatus, setpatientstatus] = useState('');
+  const [patientname, setpatientname] = useState('');
+  const [patientid, setpatientid] = useState('');
+  const [patientAge, setpatientAge] = useState('');
+  const [patientGender, setpatientGender] = useState([
+    {
+      gender: 'male',
+      isChecked: false,
+      id: 1,
+    },
+    {
+      gender: 'female',
+      isChecked: false,
+      id: 2,
+    },
+  ]);
+  const [patientWeight, setpatientWeight] = useState('');
+  const [patientTemperture, setpatientTemperature] = useState('');
+  const [patientOxygenLevel, setpatientPatientOxygenLevel] = useState('');
+  const [patientBloodPressure, setpatientBloodPressure] = useState('');
 
-  const [ChiefSymptomsData, setChiefSymptomsData] = useState(ChiefComplaintsData);
-  const [ChronicSymptomsData, setChronicSymptomsData ] = useState(ChronicDiseasesData)
+  const [ChiefSymptomsData, setChiefSymptomsData] =
+    useState(ChiefComplaintsData);
+  const [ChronicSymptomsData, setChronicSymptomsData] =
+    useState(ChronicDiseasesData);
 
-  const [name, setname] = useState('');
-
-  const [text, setText] = useState('');
-
-  const handleFirstDropdown = (value: any) => {
+  const handleFirstDropdown = (value: string) => {
     console.log(`Course value is ${value}`);
-    setcourse(value);
+    setpatientstatus(value);
+  };
+
+  const handleGenderSelection = (genderID: number) => {
+    console.log(genderID);
+    const UpdatedDataSelecton = patientGender.map(item => {
+      if (genderID === item.id) {
+        console.log('success');
+        return {...item, isChecked: !item.isChecked};
+      } else {
+        return {...item, isChecked: false};
+      }
+    });
+    setpatientGender(UpdatedDataSelecton);
   };
 
   const handleTextChange = (newText: string) => {
@@ -301,76 +329,101 @@ export default function AddPatientScreen() {
     setText(formattedText);
   };
 
-
   const handleChiefSymptomsQuestionSelect = (questionID: number) => {
     const UpdatedData = ChiefSymptomsData.map(question => {
       if (question.id === questionID) {
-        return{ ...question, isChecked: !question.isChecked, optionid: null}
+        return {...question, isChecked: !question.isChecked, optionid: null};
       } else {
         return {...question};
       }
-    })
-    setChiefSymptomsData(UpdatedData)
-
-  }
+    });
+    setChiefSymptomsData(UpdatedData);
+  };
 
   const handleChronicSymptomsQuestionSelect = (questionID: number) => {
-      const UpdatedData = ChronicSymptomsData.map(question => {
-        if (question.id === questionID) {
-          return{ ...question, isChecked: !question.isChecked, optionid: null}
-        } else {
-          return {...question};
-        }
-      })
-      setChronicSymptomsData(UpdatedData)
-  
-    }
+    const UpdatedData = ChronicSymptomsData.map(question => {
+      if (question.id === questionID) {
+        return {...question, isChecked: !question.isChecked, optionid: null};
+      } else {
+        return {...question};
+      }
+    });
+    setChronicSymptomsData(UpdatedData);
+  };
 
-
-  const handleChiefOptionSelect = (optionID: number, indexOfOptioninQuestion: number) => { 
-    console.log("index of option",indexOfOptioninQuestion)
+  const handleChiefOptionSelect = (
+    optionID: number,
+    indexOfOptioninQuestion: number,
+  ) => {
+    console.log('index of option', indexOfOptioninQuestion);
     const UpdatedOptions = ChiefSymptomsData.map((question, index) => {
       if (question.isChecked === true && index === indexOfOptioninQuestion) {
         const UpdatedSelection = question.options.map(option => {
           if (option.id === optionID) {
-            return {...option, isChecked: !option.isChecked}
+            return {...option, isChecked: !option.isChecked};
           } else {
-            return {...option, isChecked: false}  
+            return {...option, isChecked: false};
           }
-        })
-        return {...question, options: UpdatedSelection}
-      } 
-      else {
-        return {...question}
+        });
+        return {...question, options: UpdatedSelection};
+      } else {
+        return {...question};
       }
-    })
+    });
 
-    console.log(UpdatedOptions)
-    setChiefSymptomsData(UpdatedOptions)
+    console.log(UpdatedOptions);
+    setChiefSymptomsData(UpdatedOptions);
   };
 
-  const handleChronicOptionSelect = (optionID: number, indexOfOptioninQuestion: number) => {
-    console.log("index of option",indexOfOptioninQuestion)
+  const handleChronicOptionSelect = (
+    optionID: number,
+    indexOfOptioninQuestion: number,
+  ) => {
+    console.log('index of option', indexOfOptioninQuestion);
     const UpdatedOptions = ChronicSymptomsData.map((question, index) => {
       if (question.isChecked === true && index === indexOfOptioninQuestion) {
         const UpdatedSelection = question.options.map(option => {
           if (option.id === optionID) {
-            return {...option, isChecked: !option.isChecked}
+            return {...option, isChecked: !option.isChecked};
           } else {
-            return {...option, isChecked: false}  
+            return {...option, isChecked: false};
           }
-        })
-        return {...question, options: UpdatedSelection}
-      } 
-      else {
-        return {...question}
+        });
+        return {...question, options: UpdatedSelection};
+      } else {
+        return {...question};
       }
-    })
+    });
 
-    console.log(UpdatedOptions)
-    setChronicSymptomsData(UpdatedOptions)
+    console.log(UpdatedOptions);
+    setChronicSymptomsData(UpdatedOptions);
   };
 
+  const PatientGenderCard = () => (
+    <View style={{marginVertical: 10}}>
+      <Title color={colors.black} size={fonts.font12}>
+        Gender
+      </Title>
+      <View
+        style={[
+          styles.PatientSelectionContainer,
+          {width: metrics.screenWidth * 0.43},
+        ]}>
+        {patientGender.map(item => (
+          <View
+            key={item.id}
+            style={{alignItems: 'center', flexDirection: 'row'}}>
+            <CheckBox
+              tintColors={{true: colors.green, false: 'black'}}
+              onValueChange={() => handleGenderSelection(item.id)}
+              value={item.isChecked}
+            />
+            <SubTitle size={fonts.font12}>{item.gender}</SubTitle>
+          </View>
+        ))}
+      </View>
+    </View>
+  );
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -388,16 +441,50 @@ export default function AddPatientScreen() {
         />
       </View>
 
-      <Textinput label={'Patient name'} />
-      <Textinput label={'Patient ID'} />
+      <Textinput
+        label={'Patient name'}
+        onChangeText={setpatientname}
+        value={patientname}
+      />
+
+      <Textinput
+        label={'Patient ID'}
+        onChangeText={setpatientid}
+        value={patientid}
+      />
+
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
           width: metrics.screenWidth * 0.9,
         }}>
-        <Textinput width={metrics.screenWidth * 0.43} label="Weight(kg)" />
-        <Textinput width={metrics.screenWidth * 0.43} label="Temperature(C)" />
+        <Textinput
+          width={metrics.screenWidth * 0.43}
+          label="Age"
+          onChangeText={setpatientAge}
+          value={patientAge}
+        />
+        <PatientGenderCard />
+      </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          width: metrics.screenWidth * 0.9,
+        }}>
+        <Textinput
+          width={metrics.screenWidth * 0.43}
+          label="Weight(kg)"
+          onChangeText={setpatientWeight}
+          value={patientWeight}
+        />
+        <Textinput
+          width={metrics.screenWidth * 0.43}
+          label="Temperature(C)"
+          onChangeText={setpatientTemperature}
+          value={patientTemperture}
+        />
       </View>
       <View
         style={{
@@ -408,10 +495,14 @@ export default function AddPatientScreen() {
         <Textinput
           width={metrics.screenWidth * 0.43}
           label="Oxygen saturation(SpO2)"
+          onChangeText={setpatientPatientOxygenLevel}
+          value={patientOxygenLevel}
         />
         <Textinput
           width={metrics.screenWidth * 0.43}
           label="Blood Pressure(mm/hg)"
+          onChangeText={setpatientBloodPressure}
+          value={patientBloodPressure}
         />
       </View>
 
@@ -433,7 +524,9 @@ export default function AddPatientScreen() {
               <View style={{flex: 0.5, alignItems: 'flex-end'}}>
                 <CheckBoxComponent
                   label="Yes"
-                  onPress={() => handleChiefSymptomsQuestionSelect(questionitem.id)}
+                  onPress={() =>
+                    handleChiefSymptomsQuestionSelect(questionitem.id)
+                  }
                 />
               </View>
             </View>
@@ -445,26 +538,25 @@ export default function AddPatientScreen() {
                 </View>
 
                 <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-                  {questionitem.options.map((options) => (
+                  {questionitem.options.map(options => (
                     <View
                       key={options.id}
                       style={{
                         width: '50%',
                         alignItems: 'flex-start',
-                        paddingLeft: 15,
+                        paddingLeft: 12,
+                        paddingVertical: 5
                       }}>
                       <View
                         style={{alignItems: 'center', flexDirection: 'row'}}>
                         <CheckBox
                           value={options.isChecked}
-                          tintColors={{ true: '#00D100', false: 'black' }}
+                          tintColors={{true: colors.green, false: 'black'}}
                           onValueChange={() =>
                             handleChiefOptionSelect(options.id, index)
                           }
                         />
-                        <SubTitle size={fonts.font12}>
-                          {options.title}
-                        </SubTitle>
+                        <SubTitle size={fonts.font10}>{options.title}</SubTitle>
                       </View>
                     </View>
                   ))}
@@ -489,7 +581,9 @@ export default function AddPatientScreen() {
               <View style={{flex: 0.5, alignItems: 'flex-end'}}>
                 <CheckBoxComponent
                   label="Yes"
-                  onPress={() => handleChronicSymptomsQuestionSelect(questionitem.id)}
+                  onPress={() =>
+                    handleChronicSymptomsQuestionSelect(questionitem.id)
+                  }
                 />
               </View>
             </View>
@@ -501,7 +595,7 @@ export default function AddPatientScreen() {
                 </View>
 
                 <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-                  {questionitem.options.map((options) => (
+                  {questionitem.options.map(options => (
                     <View
                       key={options.id}
                       style={{
@@ -513,14 +607,12 @@ export default function AddPatientScreen() {
                         style={{alignItems: 'center', flexDirection: 'row'}}>
                         <CheckBox
                           value={options.isChecked}
-                          tintColors={{ true: '#00D100', false: 'black' }}
+                          tintColors={{true: '#00D100', false: 'black'}}
                           onValueChange={() =>
                             handleChronicOptionSelect(options.id, index)
                           }
                         />
-                        <SubTitle size={fonts.font12}>
-                          {options.title}
-                        </SubTitle>
+                        <SubTitle size={fonts.font12}>{options.title}</SubTitle>
                       </View>
                     </View>
                   ))}
@@ -530,8 +622,6 @@ export default function AddPatientScreen() {
           </View>
         </>
       ))}
-
-
 
       <View style={{width: metrics.screenWidth * 0.9, marginVertical: 15}}>
         <Title color={colors.black}>Lifestyle habits</Title>
@@ -579,5 +669,18 @@ const styles = StyleSheet.create({
   optionsCard: {
     width: metrics.screenWidth * 0.9,
     padding: 10,
+  },
+  PatientSelectionContainer: {
+    borderColor: colors.green,
+    borderRadius: 8,
+    borderWidth: 0.5,
+    marginVertical: 5,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    fontSize: fonts.font12,
+    color: colors.black,
+    flexDirection: 'row',
   },
 });

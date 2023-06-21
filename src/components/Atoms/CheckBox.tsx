@@ -26,7 +26,7 @@ export default function CheckBoxComponent({
   return (
     <View style={{alignItems: 'center', flexDirection: 'row'}}>
       <CheckBox
-        tintColor={colors.green}
+        tintColors={{true: colors.green, false: 'black'}}
         disabled={false}
         value={toggleCheckBox}
         onValueChange={handleToggle}

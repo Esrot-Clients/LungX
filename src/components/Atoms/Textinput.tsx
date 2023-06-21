@@ -46,7 +46,8 @@ export const Textinput: React.FC<Props> = ({
           {
             height: height ? height : 55,
             width: width ? width : metrics.screenWidth * 0.9,
-            textAlignVertical : height ? 'top' : 'center'
+            textAlignVertical : height ? 'top' : 'center',
+            textAlign: width ? 'center' : 'left'
           },
         ]}
         value={value}
@@ -72,6 +73,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     fontSize: fonts.font12,
     color: colors.black,
+    fontFamily: 'Montserrat-Regular',
 
   },
 });

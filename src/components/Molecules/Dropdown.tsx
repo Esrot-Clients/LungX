@@ -7,6 +7,7 @@ import metrics from '../../constants/layout';
 import colors from '../../constants/colors';
 
 import {BtnText} from '../Atoms/Buttons';
+import fonts from '../../constants/fontsSize';
 
 interface data_objects {
   label: string;
@@ -48,15 +49,11 @@ export const DropdownComponent: React.FC<Props> = ({
         ]}
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
-        inputSearchStyle={styles.inputSearchStyle}
-        iconStyle={styles.iconStyle}
         data={dropdowndata}
-        search
         maxHeight={300}
         labelField="value"
         valueField="value"
         placeholder={label ? 'Select' : placeholder}
-        searchPlaceholder="Search..."
         onChange={item => handleItemSelected(item)}
         renderRightIcon={() => (
           <AntDesign name="down" size={16} color={colors.black} style={styles.icon} />
@@ -82,24 +79,16 @@ const styles = StyleSheet.create({
   },
 
   placeholderStyle: {
-    fontSize: 16,
+    fontSize: fonts.font12,
     color: colors.green,
     paddingLeft: 10,
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Montserrat-Regular',
   },
   selectedTextStyle: {
-    fontSize: 16,
+    fontSize: fonts.font12,
     paddingLeft: 10,
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Montserrat-Medium',
     color: colors.green
   },
-  iconStyle: {
-    width: 20,
-    height: 20,
-  },
-  inputSearchStyle: {
-    height: 40,
-    fontSize: 16,
-    paddingLeft: 10,
-  },
+
 });
