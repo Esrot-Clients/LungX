@@ -53,7 +53,7 @@ export const Paragraph: React.FC<PropsWithChildren> = ({children}: any) => {
         style={{
           fontSize: fonts.font8,
           fontFamily: Platform.OS === 'android' ? 'Poppins-Regular' : 'Avenir',
-          color: '#211C5A',
+          color: '#000',
         }}>
         {children}
       </Text>

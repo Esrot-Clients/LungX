@@ -1037,6 +1037,11 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
+"@joaosousa/react-native-progress-steps@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@joaosousa/react-native-progress-steps/-/react-native-progress-steps-0.4.0.tgz#9878588f7f9c4f49917a056346d897038c769a39"
+  integrity sha512-+78GHoWp9tni+4w3ok8G4peHRBZmFTRLm+PTgDHf6sH7oS+FJiodG07t/Huz/udk0BMxBlSAp0mWu6fTZGlRtg==
+
 "@jridgewell/gen-mapping@^0.3.0", "@jridgewell/gen-mapping@^0.3.2":
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/@jridgewell/gen-mapping/-/gen-mapping-0.3.3.tgz#7e02e6eb5df901aaedb08514203b096614024098"

@@ -274,7 +274,7 @@ const ChronicDiseasesData = [
   },
 ];
 
-export default function AddPatientScreen() {
+export default function AddPatientScreen({ navigation }: any) {
   const [patientstatus, setpatientstatus] = useState('');
   const [patientname, setpatientname] = useState('');
   const [patientid, setpatientid] = useState('');
@@ -506,6 +506,10 @@ export default function AddPatientScreen() {
         />
       </View>
 
+
+
+    {/* Multiple Selection form  */}
+
       <View style={{width: metrics.screenWidth * 0.9}}>
         <Title color={colors.green}>Tick all Symptoms that apply</Title>
       </View>
@@ -645,7 +649,7 @@ export default function AddPatientScreen() {
           <BtnContain
             label="Start Recording"
             color={colors.green}
-            onPress={() => {}}
+            onPress={() => {navigation.navigate('Lungs Recording')}}
           />
         </View>
       </View>

@@ -29,6 +29,8 @@ import OutPatientsDetailsScreen from '../screens/OutPatientsDetailsScreen';
 import SearchDoctorScreen from '../screens/SearchDoctorScreen';
 import ForgotPasswordEmailScreen from '../screens/ForgotPasswordEmailScreen';
 import ForgotPasswordTokenScreen from '../screens/ForgotPasswordTokenScreen';
+import PatientLungsSoundRecording from '../screens/PatientLungsSoundRecording';
+import InPatientDetailsScreen from '../screens/InPatientDetailsScreen';
 
 // import EditProfileScreen from '../screens/EditProfileScreen';
 
@@ -319,10 +321,42 @@ function PatientsFlowStack() {
         }}
       />
       <Stack.Screen
+        name="Lungs Recording"
+        component={PatientLungsSoundRecording}
+        options={{
+          headerLeft: () => (
+            <View
+              style={{
+                alignItems: 'center',
+                flexDirection: 'row',
+                marginLeft: 15,
+              }}></View>
+          ),
+          headerShadowVisible: false,
+        }}
+      />
+      <Stack.Screen
         name="Out Patient Details"
         component={OutPatientsDetailsScreen}
         options={{
           headerTitle: 'Overall Report',
+          headerLeft: () => (
+            <View
+              style={{
+                alignItems: 'center',
+                flexDirection: 'row',
+                marginLeft: 15,
+              }}></View>
+          ),
+          headerShadowVisible: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="In Patient Details"
+        component={InPatientDetailsScreen}
+        options={{
+          headerTitle: 'In Patient',
           headerLeft: () => (
             <View
               style={{

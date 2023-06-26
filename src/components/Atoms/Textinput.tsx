@@ -11,6 +11,7 @@ interface Props {
   label?: string;
   value?: string;
   multiline? : boolean;
+  editable?: boolean;
   onChangeText?: (text: string) => void;
   onSubmitEditing?: () => void;
   height?: number;
@@ -24,6 +25,7 @@ export const Textinput: React.FC<Props> = ({
   height,
   width,
   multiline,
+  editable,
   onChangeText,
   onSubmitEditing,
 }) => {
@@ -41,6 +43,7 @@ export const Textinput: React.FC<Props> = ({
     <View style={{marginVertical: 10,}}>
       {label ? <Title  color={colors.black} size={fonts.font12}>{label}</Title> : null}
       <TextInput
+      editable={editable}
         style={[
           styles.textinput,
           {

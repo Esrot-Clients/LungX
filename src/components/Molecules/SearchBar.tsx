@@ -64,9 +64,9 @@ const styles = StyleSheet.create({
         marginRight: 5,
       },
       input: {
-        // width: metrics.screenWidth * 0.6,
+        width: metrics.screenWidth * 0.6,
         fontFamily: 'Montserrat-Regular',
-        fontSize: 15,
+        fontSize: 14,
         color: '#8A8A8A',
       },
 })

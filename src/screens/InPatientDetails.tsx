@@ -12,7 +12,7 @@ export default function InPatientDetails({navigation}: any) {
       <FlatList
         showsVerticalScrollIndicator={false}
         data={[1, 2, 3, 4]}
-        renderItem={({item}) => <PatientDetailsCard showView={true} />}
+        renderItem={({item}) => <PatientDetailsCard showView={true} onPress={()=> navigation.navigate('In Patient Details')}/>}
         keyExtractor={item => item.toString()}
         ListHeaderComponent={()=> <SearchBar/>}
         ListFooterComponent={() => (
