@@ -1,4 +1,4 @@
-import {Alert, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Alert, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
 import React, {useState, useContext} from 'react';
 
 import metrics from '../constants/layout';
@@ -59,7 +59,7 @@ export default function RegistrationScreen({navigation}: any): JSX.Element {
 
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
        {loadingactivity ? <LoadingScreen /> : null}
       <Text style={{color: colors.green, fontSize: 20, marginVertical: 25}}>
         Create Your Account
@@ -120,13 +120,12 @@ export default function RegistrationScreen({navigation}: any): JSX.Element {
 
         
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: 'center',
   },
   TextContainer: {

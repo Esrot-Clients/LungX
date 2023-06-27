@@ -119,7 +119,8 @@ const styles = StyleSheet.create({
   },
   input: {
     fontFamily: 'Montserrat-Regular',
-    fontSize: 15,
+    fontSize: fonts.font12,
     color: '#8A8A8A',
+    width: metrics.screenWidth * 0.7
   },
 });

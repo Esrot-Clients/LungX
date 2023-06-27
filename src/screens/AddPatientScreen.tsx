@@ -1,5 +1,5 @@
-import {ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
-import React, {useState} from 'react';
+import {ScrollView, StyleSheet, Text, TextInput, View, Alert} from 'react-native';
+import React, {useContext, useState} from 'react';
 import Textinput from '../components/Atoms/Textinput';
 import metrics from '../constants/layout';
 import CheckBoxComponent from '../components/Atoms/CheckBox';
@@ -10,6 +10,9 @@ import SymptomsCard from '../components/Molecules/SymptomsCard';
 import DropdownComponent from '../components/Molecules/Dropdown';
 import {BtnContain} from '../components/Atoms/Buttons';
 import CheckBox from '@react-native-community/checkbox';
+import LungXinstance from '../api/server';
+import {AuthContext} from '../context/AuthContext';
+import LoadingScreen from '../components/Atoms/LoginScreen';
 
 const data = [
   {label: 'Out-patient', value: 'Out-patient'},
@@ -274,7 +277,70 @@ const ChronicDiseasesData = [
   },
 ];
 
-export default function AddPatientScreen({ navigation }: any) {
+const LifeStyleHabitsData = [
+  {
+    id: 1,
+    title: 'Alcohol',
+    isChecked: false,
+    optionid: 2,
+    options: [
+      {
+        id: 1,
+        title: '< 1 Year',
+        isChecked: false,
+      },
+      {
+        id: 2,
+        title: '< 5 Years',
+        isChecked: false,
+      },
+      {
+        id: 3,
+        title: '< 10 Years',
+        isChecked: false,
+      },
+      {
+        id: 4,
+        title: '> 10 Years',
+        isChecked: false,
+      },
+    ],
+  },
+  {
+    id: 2,
+    title: 'Smoking',
+    isChecked: false,
+    optionid: 2,
+    options: [
+      {
+        id: 1,
+        title: '< 1 Year',
+        isChecked: false,
+      },
+      {
+        id: 2,
+        title: '< 5 Years',
+        isChecked: false,
+      },
+      {
+        id: 3,
+        title: '< 10 Years',
+        isChecked: false,
+      },
+      {
+        id: 4,
+        title: '> 10 Years',
+        isChecked: false,
+      },
+    ],
+  },
+];
+
+export default function AddPatientScreen({navigation}: any) {
+  const {user}: any = useContext(AuthContext);
+
+
+  const [loading, setloading] = useState(false);
   const [patientstatus, setpatientstatus] = useState('');
   const [patientname, setpatientname] = useState('');
   const [patientid, setpatientid] = useState('');
@@ -301,8 +367,13 @@ export default function AddPatientScreen({ navigation }: any) {
   const [ChronicSymptomsData, setChronicSymptomsData] =
     useState(ChronicDiseasesData);
 
+  const [LifeStyleHabits, setLifeStyleHabits] = useState(LifeStyleHabitsData);
+
+
+  const [text, setText] = useState('');
+
   const handleFirstDropdown = (value: string) => {
-    console.log(`Course value is ${value}`);
+    console.log(`value is ${value}`);
     setpatientstatus(value);
   };
 
@@ -320,13 +391,7 @@ export default function AddPatientScreen({ navigation }: any) {
   };
 
   const handleTextChange = (newText: string) => {
-    // Split the text into lines
-    const lines = newText.split('\n');
-
-    // Format each line with a bullet point and indentation
-    const formattedText = lines.map(line => `• ${line}`).join('\n');
-
-    setText(formattedText);
+    setText(newText);
   };
 
   const handleChiefSymptomsQuestionSelect = (questionID: number) => {
@@ -351,11 +416,23 @@ export default function AddPatientScreen({ navigation }: any) {
     setChronicSymptomsData(UpdatedData);
   };
 
+  const handleLifeStyleHabitsQuestionSelect = (questionID: number) => {
+    const UpdatedData = LifeStyleHabits.map(question => {
+      if (question.id === questionID) {
+        return {...question, isChecked: !question.isChecked, optionid: null};
+      } else {
+        return {...question};
+      }
+    });
+    setLifeStyleHabits(UpdatedData);
+  };
+
+
+
   const handleChiefOptionSelect = (
     optionID: number,
     indexOfOptioninQuestion: number,
   ) => {
-    console.log('index of option', indexOfOptioninQuestion);
     const UpdatedOptions = ChiefSymptomsData.map((question, index) => {
       if (question.isChecked === true && index === indexOfOptioninQuestion) {
         const UpdatedSelection = question.options.map(option => {
@@ -371,7 +448,6 @@ export default function AddPatientScreen({ navigation }: any) {
       }
     });
 
-    console.log(UpdatedOptions);
     setChiefSymptomsData(UpdatedOptions);
   };
 
@@ -397,6 +473,75 @@ export default function AddPatientScreen({ navigation }: any) {
 
     console.log(UpdatedOptions);
     setChronicSymptomsData(UpdatedOptions);
+  };
+
+  const handleLifeStyleHabitsOptionSelect = (
+    optionID: number,
+    indexOfOptioninQuestion: number,
+  ) => {
+    const UpdatedOptions = LifeStyleHabits.map((question, index) => {
+      if (question.isChecked === true && index === indexOfOptioninQuestion) {
+        const UpdatedSelection = question.options.map(option => {
+          if (option.id === optionID) {
+            return {...option, isChecked: !option.isChecked};
+          } else {
+            return {...option, isChecked: false};
+          }
+        });
+        return {...question, options: UpdatedSelection};
+      } else {
+        return {...question};
+      }
+    });
+
+    console.log(UpdatedOptions);
+    setLifeStyleHabits(UpdatedOptions);
+  };
+
+
+  const handlePatientDetailSubmission = async () => {
+
+    const filterGenderArray = patientGender.filter(
+      item => item.isChecked === true,
+    );
+
+    const filterChiefSymptomsArray = ChiefSymptomsData.filter(
+      item => item.isChecked === true,
+    );
+    const filterChronicSymptomsArray = ChronicSymptomsData.filter(
+      item => item.isChecked === true,
+    );
+
+    const filterLifeStyleHabitsArray = LifeStyleHabits.filter(
+      item => item.isChecked === true,
+    )
+    try {
+      setloading(true)
+      const response = await LungXinstance.put(`api/patients/`, {
+        doctor: user.id,
+        patient_name: patientname,
+        out_patient: patientstatus === 'Out-patient' ? true : false,
+        in_patient: patientstatus === 'In-patient' ? true : false,
+        age: patientAge,
+        gender: filterGenderArray[0].gender,
+        temperature: patientTemperture,
+        oxygen_saturation: patientOxygenLevel,
+        blood_pressure: patientBloodPressure,
+        weight: patientWeight,
+        chief_complaints: JSON.stringify(filterChiefSymptomsArray),
+        chronic_diseases: JSON.stringify(filterChronicSymptomsArray),
+        lifestyle_habits: JSON.stringify(filterLifeStyleHabitsArray),
+        additional_notes: text
+      });
+
+      console.log(response.data);
+      setloading(false)
+
+    } catch (err: any) {
+      setloading(false)
+      Alert.alert('Message', 'Error Occurred');
+      console.log(err);
+    }
   };
 
   const PatientGenderCard = () => (
@@ -427,6 +572,10 @@ export default function AddPatientScreen({ navigation }: any) {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+
+      {
+        loading ? <LoadingScreen /> : null 
+      }
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <View style={{marginHorizontal: 10}}>
           <Title color={colors.black} size={fonts.font12}>
@@ -506,9 +655,7 @@ export default function AddPatientScreen({ navigation }: any) {
         />
       </View>
 
-
-
-    {/* Multiple Selection form  */}
+      {/* Multiple Selection form  */}
 
       <View style={{width: metrics.screenWidth * 0.9}}>
         <Title color={colors.green}>Tick all Symptoms that apply</Title>
@@ -549,7 +696,7 @@ export default function AddPatientScreen({ navigation }: any) {
                         width: '50%',
                         alignItems: 'flex-start',
                         paddingLeft: 12,
-                        paddingVertical: 5
+                        paddingVertical: 5,
                       }}>
                       <View
                         style={{alignItems: 'center', flexDirection: 'row'}}>
@@ -631,8 +778,58 @@ export default function AddPatientScreen({ navigation }: any) {
         <Title color={colors.black}>Lifestyle habits</Title>
       </View>
 
-      <SymptomsCard title="Alcohol" />
-      <SymptomsCard title="Smoking" />
+      {LifeStyleHabits.map((questionitem, index) => (
+        <>
+          <View style={{display: 'flex', marginVertical: 10}}>
+            <View style={styles.SymptomsCard}>
+              <View style={{flex: 0.5}}>
+                <SubTitle size={fonts.font12}>{questionitem.title}</SubTitle>
+              </View>
+              <View style={{flex: 0.5, alignItems: 'flex-end'}}>
+                <CheckBoxComponent
+                  label="Yes"
+                  onPress={() =>
+                    handleLifeStyleHabitsQuestionSelect(questionitem.id)
+                  }
+                />
+              </View>
+            </View>
+
+            {questionitem.isChecked === true ? (
+              <View style={styles.optionsCard}>
+                <View style={{paddingLeft: 20}}>
+                  <SubTitle size={fonts.font12}>Since how long ?</SubTitle>
+                </View>
+
+                <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+                  {questionitem.options.map(options => (
+                    <View
+                      key={options.id}
+                      style={{
+                        width: '50%',
+                        alignItems: 'flex-start',
+                        paddingLeft: 12,
+                        paddingVertical: 5,
+                      }}>
+                      <View
+                        style={{alignItems: 'center', flexDirection: 'row'}}>
+                        <CheckBox
+                          value={options.isChecked}
+                          tintColors={{true: colors.green, false: 'black'}}
+                          onValueChange={() =>
+                            handleLifeStyleHabitsOptionSelect(options.id, index)
+                          }
+                        />
+                        <SubTitle size={fonts.font10}>{options.title}</SubTitle>
+                      </View>
+                    </View>
+                  ))}
+                </View>
+              </View>
+            ) : null}
+          </View>
+        </>
+      ))}
 
       <View style={{width: metrics.screenWidth * 0.9, marginVertical: 15}}>
         <Title color={colors.black}>Additional Notes</Title>
@@ -649,7 +846,10 @@ export default function AddPatientScreen({ navigation }: any) {
           <BtnContain
             label="Start Recording"
             color={colors.green}
-            onPress={() => {navigation.navigate('Lungs Recording')}}
+            onPress={() => {
+              handlePatientDetailSubmission();
+              // navigation.navigate('Lungs Recording');
+            }}
           />
         </View>
       </View>
