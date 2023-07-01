@@ -1,5 +1,7 @@
 package com.lungx;
 
+
+
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
@@ -10,7 +12,10 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.config.ReactFeatureFlags;
 import com.facebook.soloader.SoLoader;
 import com.lungx.newarchitecture.MainApplicationReactNativeHost;
+import com.dooboolab.audiorecorderplayer.RNAudioRecorderPlayerPackage;
 import java.lang.reflect.InvocationTargetException;
+import com.rnim.rn.audio.ReactNativeAudioPackage;
+
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -28,6 +33,8 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
+          // packages.add(new RNAudioRecorderPlayerPackage());
+              packages.add(new ReactNativeAudioPackage());
           return packages;
         }
 

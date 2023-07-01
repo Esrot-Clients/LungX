@@ -1,4 +1,11 @@
-import {ScrollView, StyleSheet, Text, TextInput, View, Alert} from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  Alert,
+} from 'react-native';
 import React, {useContext, useState} from 'react';
 import Textinput from '../components/Atoms/Textinput';
 import metrics from '../constants/layout';
@@ -339,7 +346,6 @@ const LifeStyleHabitsData = [
 export default function AddPatientScreen({navigation}: any) {
   const {user}: any = useContext(AuthContext);
 
-
   const [loading, setloading] = useState(false);
   const [patientstatus, setpatientstatus] = useState('');
   const [patientname, setpatientname] = useState('');
@@ -368,7 +374,6 @@ export default function AddPatientScreen({navigation}: any) {
     useState(ChronicDiseasesData);
 
   const [LifeStyleHabits, setLifeStyleHabits] = useState(LifeStyleHabitsData);
-
 
   const [text, setText] = useState('');
 
@@ -426,8 +431,6 @@ export default function AddPatientScreen({navigation}: any) {
     });
     setLifeStyleHabits(UpdatedData);
   };
-
-
 
   const handleChiefOptionSelect = (
     optionID: number,
@@ -498,9 +501,7 @@ export default function AddPatientScreen({navigation}: any) {
     setLifeStyleHabits(UpdatedOptions);
   };
 
-
   const handlePatientDetailSubmission = async () => {
-
     const filterGenderArray = patientGender.filter(
       item => item.isChecked === true,
     );
@@ -514,9 +515,9 @@ export default function AddPatientScreen({navigation}: any) {
 
     const filterLifeStyleHabitsArray = LifeStyleHabits.filter(
       item => item.isChecked === true,
-    )
+    );
     try {
-      setloading(true)
+      setloading(true);
       const response = await LungXinstance.put(`api/patients/`, {
         doctor: user.id,
         patient_name: patientname,
@@ -531,14 +532,13 @@ export default function AddPatientScreen({navigation}: any) {
         chief_complaints: JSON.stringify(filterChiefSymptomsArray),
         chronic_diseases: JSON.stringify(filterChronicSymptomsArray),
         lifestyle_habits: JSON.stringify(filterLifeStyleHabitsArray),
-        additional_notes: text
+        additional_notes: text,
       });
 
       console.log(response.data);
-      setloading(false)
-
+      setloading(false);
     } catch (err: any) {
-      setloading(false)
+      setloading(false);
       Alert.alert('Message', 'Error Occurred');
       console.log(err);
     }
@@ -572,10 +572,7 @@ export default function AddPatientScreen({navigation}: any) {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-
-      {
-        loading ? <LoadingScreen /> : null 
-      }
+      {loading ? <LoadingScreen /> : null}
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <View style={{marginHorizontal: 10}}>
           <Title color={colors.black} size={fonts.font12}>
@@ -847,8 +844,8 @@ export default function AddPatientScreen({navigation}: any) {
             label="Start Recording"
             color={colors.green}
             onPress={() => {
-              handlePatientDetailSubmission();
-              // navigation.navigate('Lungs Recording');
+              // handlePatientDetailSubmission();
+              navigation.navigate('Anterior');
             }}
           />
         </View>
